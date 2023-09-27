@@ -1,0 +1,30 @@
+
+version: '3'
+
+services:5432
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: doctest
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5432:5432"
+    container_name: postgres     
+
+  web:
+    build: .
+    environment:
+      - DOCKERIZED=True
+    ports: 
+    - "8000:8000"
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    container_name: workdirc
+    volumes:
+     - .:/workdirc
+
+
+    
+
+    
