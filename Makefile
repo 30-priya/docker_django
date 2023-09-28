@@ -21,29 +21,29 @@ stop:
 
 # Create and apply database migrations
 migrate:
-	docker-compose run web  python manage.py makemigrations
-	docker-compose run web python manage.py migrate
+	 python manage.py makemigrations
+	 python manage.py migrate
 
 # Create a superuser for the Django application
 superuser:
-	docker-compose run web python manage.py createsuperuser
+	 python manage.py createsuperuser
 
 # Access the Django shell
 shell:
-	docker-compose run web python manage.py shell
+	 python manage.py shell
 
 # Linting Django 
 lint:
     
-	docker-compose run web black --check --exclude="venv/" $(DIR_PATH)
-	docker-compose run web xenon --max-absolute=C --max-modules=B --max-average=B --ignore=venv $(DIR_PATH)
-	docker-compose run web flake8 --exclude=settings.py $(DIR_PATH)
+	 black --check --exclude="venv/" $(DIR_PATH)
+	 xenon --max-absolute=C --max-modules=B --max-average=B --ignore=venv $(DIR_PATH)
+	 flake8 --exclude=settings.py $(DIR_PATH)
 
 
 # formating Django 
 format:
-	docker-compose run web isort --atomic --skip-glob="venv/*" $(DIR_PATH)
-	docker-compose run web black --exclude="venv/" $(DIR_PATH)
+	 isort --atomic --skip-glob="venv/*" $(DIR_PATH)
+	 black --exclude="venv/" $(DIR_PATH)
 
 #restart server
 restart:
