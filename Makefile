@@ -2,7 +2,6 @@
 DIR_PATH := /workdirc
 
 
-
 # Build the Docker containers
 build:
 	docker-compose build
@@ -21,29 +20,29 @@ stop:
 
 # Create and apply database migrations
 migrate:
-	 python manage.py makemigrations
-	 python manage.py migrate
+	docker-compose run web  python manage.py makemigrations
+	docker-compose run web python manage.py migrate
 
 # Create a superuser for the Django application
 superuser:
-	 python manage.py createsuperuser
+	docker-compose run web python manage.py createsuperuser
 
 # Access the Django shell
 shell:
-	 python manage.py shell
+	docker-compose run web python manage.py shell
 
 # Linting Django 
 lint:
     
-	 black --check --exclude="venv/" $(DIR_PATH)
-	 xenon --max-absolute=C --max-modules=B --max-average=B --ignore=venv $(DIR_PATH)
-	 flake8 --exclude=settings.py $(DIR_PATH)
+	docker-compose run web black --check --exclude="venv/" $(DIR_PATH)
+	docker-compose run web xenon --max-absolute=C --max-modules=B --max-average=B --ignore=venv $(DIR_PATH)
+	docker-compose run web flake8 --exclude=settings.py $(DIR_PATH)
 
 
 # formating Django 
 format:
-	 isort --atomic --skip-glob="venv/*" $(DIR_PATH)
-	 black --exclude="venv/" $(DIR_PATH)
+	docker-compose run web isort --atomic --skip-glob="venv/*" $(DIR_PATH)
+	docker-compose run web black --exclude="venv/" $(DIR_PATH)
 
 #restart server
 restart:
